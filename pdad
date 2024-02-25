@@ -1,0 +1,26 @@
+import requests
+import json
+
+def create_github_repo(username, token, repo_name):
+    headers = {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/vnd.github.v3+json'
+    }
+    payload = {
+        'name': repo_name,
+        'auto_init': True,
+        'private': False  # Ubah menjadi True jika ingin membuat repo pribadi
+    }
+    url = f'https://api.github.com/user/repos'
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+    if response.status_code == 201:
+        print(f"Repository '{repo_name}' berhasil dibuat!")
+    else:
+        print(f"Gagal membuat repository. Kesalahan: {response.text}")
+
+# Ganti nilai-nilai berikut dengan informasi akun GitHub Anda
+username = 'patrick'
+token = 'Ade'
+repo_name = 'Repo1'
+
+create_github_repo(username, token, repo_name)
